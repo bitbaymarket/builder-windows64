@@ -1,4 +1,4 @@
-FROM golang:latest 
+FROM golang:1.12
 MAINTAINER yshurik <yshurik@gmail.com>
 
 RUN apt update
@@ -39,7 +39,7 @@ WORKDIR /
 RUN echo mark5
 RUN git clone https://github.com/yshurik/mxe.git
 WORKDIR /mxe
-RUN sed -i 's/DEFAULT_MAX_JOBS   := 6/DEFAULT_MAX_JOBS   := 32/' /mxe/Makefile
+#RUN sed -i 's/DEFAULT_MAX_JOBS   := 6/DEFAULT_MAX_JOBS   := 32/' /mxe/Makefile
 RUN git checkout base0
 
 ENV MXE_TARGETS "x86_64-w64-mingw32.static"
