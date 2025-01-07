@@ -32,8 +32,7 @@ jobs:
           context: .
           file: ./mxe.dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: mxe #${{ steps.meta.outputs.tags }}
-          labels: mxe #${{ steps.meta.outputs.labels }}
+          tags: ghcr.io/bitbaymarket/builder-windows64:mxe
       -
         name: build2
         uses: docker/build-push-action@v3
@@ -41,5 +40,4 @@ jobs:
           context: .
           file: ./qt.dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: qt #${{ steps.meta.outputs.tags }}
-          labels: qt #${{ steps.meta.outputs.labels }}
+          tags: ghcr.io/bitbaymarket/builder-windows64:qt
