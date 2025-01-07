@@ -1,0 +1,36 @@
+name: build-deploy
+on: [push]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: checkout
+        uses: actions/checkout@v3
+      -
+        name: login github
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: meta tags
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/bitbaymarket/builder-windows64
+      -
+        name: build
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./mxe.dockerfile
+          push: false # ${{ github.event_name != 'pull_request' }}
+          tags: mxe #${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
