@@ -1,4 +1,4 @@
-FROM bitbayofficial/builder-windows64:mxe
+FROM ghcr.io/bitbaymarket/builder-windows64:mxe
 MAINTAINER yshurik <yshurik@gmail.com>
 
 RUN make MXE_PLUGIN_DIRS="$MXE_PLUGIN_DIRS" MXE_TARGETS="x86_64-w64-mingw32.static" qtbase

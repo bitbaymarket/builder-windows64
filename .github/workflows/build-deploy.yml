@@ -26,11 +26,20 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/bitbaymarket/builder-windows64
       -
-        name: build
+        name: build1
         uses: docker/build-push-action@v3
         with:
           context: .
           file: ./mxe.dockerfile
-          push: false # ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name != 'pull_request' }}
           tags: mxe #${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: mxe #${{ steps.meta.outputs.labels }}
+      -
+        name: build2
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./qt.dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: qt #${{ steps.meta.outputs.tags }}
+          labels: qt #${{ steps.meta.outputs.labels }}
